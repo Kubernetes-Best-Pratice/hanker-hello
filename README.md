@@ -3,7 +3,7 @@
 
 ```sh
 export GOPROXY=https://goproxy.io
-go mod init deckjob
+go mod init hanker-hello
 ```
 
 下载依赖包,
