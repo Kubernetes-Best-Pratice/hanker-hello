@@ -1,0 +1,73 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devops
+  
+# Deployment 
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hanker-hello
+  namespace: devops
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  template:
+    metadata:
+      labels:
+        app: hanker-hello
+    spec:
+      nodeName: 1.1.1.1
+      containers:
+      - image: 10.0.0.185:5000/devops/hanker-hello:v1
+        imagePullPolicy: IfNotPresent
+        name: hanker-hello
+        volumeMounts:
+        - name: jenkins-localtime
+          mountPath: /etc/localtime
+        ports:
+        - name: http
+          containerPort: 8080
+        resources:
+          requests:
+            cpu: 200m
+            memory: 400Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+      volumes:
+        - name: jenkins-localtime
+          hostPath:
+            path: /etc/localtime
+     
+     
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hanker-hello-svc
+  namespace: devops
+spec:
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: hanker-hello
+    
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hanker-hello-ingress
+  namespace: devops
+spec:
+  rules:
+  - host: hanker-hello-demo.dev.hanker.net
+    http:
+      paths:
+      - backend:
+          serviceName: hanker-hello-svc
+          servicePort: 8080
+        path: /
