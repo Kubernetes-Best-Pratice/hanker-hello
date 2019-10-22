@@ -17,7 +17,6 @@ spec:
       labels:
         app: hanker-hello
     spec:
-      nodeName: 1.1.1.1
       containers:
       - image: 10.0.0.185:5000/devops/hanker-hello:v1
         imagePullPolicy: IfNotPresent
