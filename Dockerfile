@@ -1,5 +1,5 @@
 ## build
-FROM 10.0.0.185:5000/env/golang:1.12-alpine3.9 AS build-env
+FROM golang:1.12-alpine AS build-env
 
 ADD . /go/src/hanker-hello
 
@@ -8,7 +8,7 @@ WORKDIR /go/src/hanker-hello
 RUN go build main.go
 
 ## run
-FROM 10.0.0.185:5000/env/alpine:3.9
+FROM alpine:3.9
 
 LABEL maintainer="Hanker <system@hankercloud.com>"
 
