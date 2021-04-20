@@ -10,7 +10,7 @@ pipeline {
           }
         }
 
-        stage('parallel') {
+        stage('app02') {
           steps {
             echo 'this is parellse'
           }
@@ -19,15 +19,21 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
+    stage('Test') {
       steps {
         echo 'this is deploy'
       }
     }
 
-    stage('HealthCheck') {
+    stage('Deploy') {
       steps {
         echo 'this is health check'
+      }
+    }
+
+    stage('HealthCheck') {
+      steps {
+        echo 'message'
       }
     }
 
