@@ -25,15 +25,21 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
+    stage('Deploy-dev') {
       steps {
-        echo 'this is health check'
+        echo 'this is deploy dev'
       }
     }
 
     stage('HealthCheck') {
       steps {
         echo 'message'
+      }
+    }
+
+    stage('Dev-prod') {
+      steps {
+        echo 'deploy prod'
       }
     }
 
