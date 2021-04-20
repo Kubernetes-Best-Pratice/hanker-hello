@@ -10,7 +10,7 @@ pipeline {
           }
         }
 
-        stage('parell') {
+        stage('parallel') {
           steps {
             echo 'this is parellse'
           }
